@@ -2,7 +2,7 @@
 	<logo>
         NixOS Resonite Headless
         <br>
-		<img src="./logo/nix-resoflake.svg" width="256" height="256">
+		<img src="./Logo/nix-resoflake.svg" width="256" height="256">
 	</logo>
 </h1>
 
