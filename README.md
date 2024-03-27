@@ -1,6 +1,6 @@
 # NixOS Resonite Headless
  
-This is an experimental NixOS configuration to quickly setup headless clients for Resonite. This is a heavily experimental and assumes (for now) that you're already familiar with NixOS.
+This is an experimental NixOS configuration to quickly setup headless clients for Resonite. This is very work in progress and assumes (for now) that you're already familiar with NixOS.
 
 # Current and Planned Functions
 
