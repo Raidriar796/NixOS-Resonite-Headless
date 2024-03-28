@@ -12,20 +12,23 @@
     environment.systemPackages = with pkgs;
         [
             # System packages
+            btop
             nano
-            wget
             tmux
-
-            # DepotDownloader dependancy
-            dotnet-runtime_8
+            wget
 
             # For downloading from Steam
             depotdownloader
 
+            # DepotDownloader dependancy
+            dotnet-runtime_8
+
             # Headless client dependancies
-            mono
             freetype
+            mono
         ];
+
+    services.openssh.enable = true;
 
     system.stateVersion = "23.11";
 }
