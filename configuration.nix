@@ -11,14 +11,21 @@
     
     environment.systemPackages = with pkgs;
         [
+            # System packages
             nano
             wget
+            tmux
+
+            # DepotDownloader dependancy
+            dotnet-runtime_8
+
+            # For downloading from Steam
+            depotdownloader
+
+            # Headless client dependancies
             mono
-            steamPackages.steamcmd
             freetype
         ];
-
-    nixpkgs.config.allowUnfree = true;
 
     system.stateVersion = "23.11";
 }
