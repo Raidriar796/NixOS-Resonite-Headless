@@ -12,7 +12,7 @@
   users.users.gloopie = 
   {
     isNormalUser = true;
-  }
+  };
     
   environment.systemPackages = with pkgs;
   [
