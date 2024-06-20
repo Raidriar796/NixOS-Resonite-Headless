@@ -26,7 +26,7 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 # Installation
 
 ### Install NixOS
-1.  If you don't know how already, follow the official [NixOS Installation Guide](<https://nixos.wiki/wiki/NixOS_Installation_Guide>). This works best on a fresh NixOS install.
+1.  If you don't know how already, follow the official [NixOS Installation Guide](<https://nixos.wiki/wiki/NixOS_Installation_Guide>).
 
 ### Download the config and rebuild
 1. Replace `/etc/nixos/configuration.nix` with the one in this repo, this can be done manually or by directly downloading it, example (requires wget to be installed):
@@ -34,8 +34,11 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
    - `rm configuration.nix`
    - `wget https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration.nix`
 
-2. Make initial changes to the config. The config is setup to work without any extra work however you may want to make your own changes, such as renaming the non root user. You can edit the config by running: 
+2. Make initial changes to the config. The config is setup to work without any extra changes however you may want to make your own changes for your specific case, such as renaming the non root user or installing extra packages. You can edit the config by running: 
    - `sudo nano /etc/nixos/configuration.nix`
+
+3. Test the config by running:
+   - `sudo nixos-rebuild test`
 
 4. Rebuild and restart the system with the following:
    - `sudo nixos-rebuild boot`
