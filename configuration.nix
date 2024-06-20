@@ -1,34 +1,34 @@
 { config, lib, pkgs, ... }:
 
 {
-    imports = 
-        [
-            ./hardware-configuration.nix
-        ];
+  imports = 
+  [
+    ./hardware-configuration.nix
+  ];
 
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
     
-    environment.systemPackages = with pkgs;
-        [
-            # System packages
-            btop
-            nano
-            tmux
-            wget
+  environment.systemPackages = with pkgs;
+  [
+    # System packages
+    btop
+    nano
+    tmux
+    wget
 
-            # For downloading from Steam
-            depotdownloader
+    # For downloading from Steam
+    depotdownloader
 
-            # DepotDownloader dependancy
-            dotnet-runtime_8
+    # DepotDownloader dependancy
+    dotnet-runtime_8
 
-            # Headless client dependancies
-            freetype
-            mono
-        ];
+    # Headless client dependancies
+    freetype
+    mono
+  ];
 
-    services.openssh.enable = true;
+  services.openssh.enable = true;
 
-    system.stateVersion = "23.11";
+  system.stateVersion = "23.11";
 }
