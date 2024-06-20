@@ -9,10 +9,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Set a password with passwd
   users.users.gloopie = 
   {
     isNormalUser = true;
+    extraGroups = [ "wheel" ];
   };
+
+  # uncomment for auto login
+  #services.getty.autologinUser = gloopie;
     
   environment.systemPackages = with pkgs;
   [
