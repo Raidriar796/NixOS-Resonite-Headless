@@ -16,7 +16,7 @@
     extraGroups = [ "wheel" ];
   };
 
-  # uncomment for auto login
+  # Uncomment for auto login
   #services.getty.autologinUser = gloopie;
     
   environment.systemPackages = with pkgs;
