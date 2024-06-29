@@ -51,7 +51,7 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 2. Add a symbolic link to the system installed FreeType:
    - `rm ~/Resonite/Headless/libfreetype6.so`
-   - `ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ~/Resonite/Headless/libfreetype6.so`
+   - `ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ~/Resonite/Headless/libfreetype.so.6`
 
 3. Test run the headless client:
    - `cd ~/Resonite/Headless`
