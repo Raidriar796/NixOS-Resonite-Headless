@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
 
+let userName = gloopie;
+
 {
   imports = 
   [
@@ -10,32 +12,32 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Set a password with passwd
-  users.users.gloopie = 
+  users.users.${userName} = 
   {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
 
   # Uncomment for auto login
-  #services.getty.autologinUser = gloopie;
+  #services.getty.autologinUser = userName;
     
-  environment.systemPackages = with pkgs;
+  environment.systemPackages =
   [
     # System packages
-    btop
-    nano
-    tmux
-    wget
+    pkgs.btop
+    pkgs.nano
+    pkgs.tmux
+    pkgs.wget
 
     # For downloading from Steam
-    depotdownloader
+    pkgs.depotdownloader
 
     # DepotDownloader dependancy
-    dotnet-runtime_8
+    pkgs.dotnet-runtime_8
 
     # Headless client dependancies
-    freetype
-    mono
+    pkgs.freetype
+    pkgs.mono
   ];
 
   services.openssh.enable = true;
