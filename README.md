@@ -15,11 +15,12 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 ### Current Functions
 - Downloads all neccesary software and dependancies
 - Headless client installation, reinsallation, and update commands
+- Resonite Mod Loader installation
 
 ### Planned Functions
-- Resonite Mod Loader install
 - Mod fetching
 - Docker setup
+- Flake for non NixOS systems
 
 # Installation & Usage
 
@@ -40,11 +41,11 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
    - `sudo wget https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration.nix`
 
-2. Make initial changes to the config. The config is setup to do most of the leg work but at the very least you need to change the variables at the top of the config, such as renaming the non root user and adding login credentials. Edit the config with:
+2. Make initial changes to the config. The config is setup to do most of the leg work but at the very least you need to change the values at the top of the config, such as renaming the non root user and adding login credentials. Edit the config with:
 
    - `sudo nano /etc/nixos/configuration.nix`
 
-   Change the following variables:
+   Required:
 
    - `nixUsername`
 
@@ -55,6 +56,14 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
    - `steamPassword`
 
    - `resoConfig`
+
+   Optional:
+
+   - `envVars`
+
+   - `launchArgs`
+
+   - `useRML`
 
 3. Test the config by running:
    - `sudo nixos-rebuild test`
@@ -74,10 +83,16 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 ### Extra commands
 
-- `CleanSetupHeadless` - completely reinstalls the headless client
+- `CleanSetupHeadless` - Completely reinstalls the headless client
 
-- `UpdateHeadless` - updates the headless client
+- `UpdateHeadless` - Updates the headless client
 
-- `UpdateConfig` - updates the headless config after a NixOS rebuild without updating/reinstalling the headless client
+- `UpdateConfig` - Updates the headless config after a NixOS rebuild without updating/reinstalling the headless client
+
+- `UpdateRML` - Updates Resonite Mod Loader
+
+- `ClearCache` - Deletes the cache folder
+
+- `ClearDatabase` - Deletes the data folder
 
 If everything is working up to this point, congrats, you have a functional NixOS Resonite Headless. This guide will change over time and I'll try to make it as simple as possible.
