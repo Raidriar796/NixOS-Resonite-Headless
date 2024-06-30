@@ -30,7 +30,7 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
     - This is intended to be used without a desktop. You can use whichever ISO/installation setup you want but this config is intended for and only tested with non desktop NixOS installations.
 
-    - This assumes you will be using systemd as your boot loader, you will need to change the config to grub yourself if you want to use grub.
+    - This assumes you will be using systemd as your boot loader, you will need to change the config to grub yourself if you want to use grub.  
 
 ### Download the config and rebuild
 1. Replace `/etc/nixos/configuration.nix` with the one in this repo, this can be done manually or by directly downloading it, example (requires wget to be installed):
