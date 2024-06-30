@@ -149,6 +149,16 @@ let
     cd ~/Resonite/Headless/
     ${envVars} mono ./Resonite.exe ${launchArgs}
   '';
+  
+  ClearCache = pkgs.writeShellScriptBin "ClearCache"
+  ''
+    rm -r ~/Resonite/Headless/Cache/
+  '';
+
+  ClearDatabase = pkgs.writeShellScriptBin "ClearDatabase"
+  ''
+    rm -r ~/Resonite/Headless/Data/
+  '';
 in
 {
   imports = 
@@ -194,6 +204,8 @@ in
     UpdateConfig
     UpdateRML
     RunHeadless
+    ClearCache
+    ClearDatabase
   ];
 
   services.openssh.enable = true;
