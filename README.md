@@ -13,17 +13,15 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 # Current and Planned Functions
 
 ### Current Functions
-- Downloads all neccesary packages to download, update, and run the Headless
+- Downloads all neccesary software and dependancies
+- Headless client installation, reinsallation, and update commands
 
 ### Planned Functions
-- Headless client install
-- Headless client updating
-- Symlink workarounds
 - Resonite Mod Loader install
 - Mod fetching
 - Docker setup
 
-# Installation
+# Installation & Usage
 
 ### Install NixOS
 1.  If you don't know how already, follow the official [NixOS Installation Guide](<https://nixos.wiki/wiki/NixOS_Installation_Guide>).
@@ -31,46 +29,44 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 ### Download the config and rebuild
 1. Replace `/etc/nixos/configuration.nix` with the one in this repo, this can be done manually or by directly downloading it, example (requires wget to be installed):
    - `cd /etc/nixos/`
+
    - `rm configuration.nix`
+
    - `wget https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration.nix`
 
-2. Make initial changes to the config. The config is setup to work without any extra changes however you may want to make your own changes for your specific case, such as renaming the non root user or installing extra packages. You can edit the config by running: 
-   - `sudo nano /etc/nixos/configuration.nix`
+2. Make initial changes to the config. The config is setup to work without any extra changes however you may want to make your own changes for your specific case, such as renaming the non root user or installing extra packages. You should change the following variables:
+   - `nixUserName`
+
+   - `betaPassword`
+
+   - `steamUsername`
+
+   - `steamPassword`
+
+   - `resoConfig`
 
 3. Test the config by running:
    - `sudo nixos-rebuild test`
 
 4. Rebuild and restart the system with the following:
    - `sudo nixos-rebuild boot`
+
    - `sudo reboot -h now`
 
 ### Download and run the headless client
 
-1. Run DepotDownloader to download the headless client:
-   - `DepotDownloader -app 2519830 -beta headless -betapassword BETAPASSWORD -username YOURUSERNAME -password YOURPASSWORD -dir ~/Resonite/`
+1. Use the provided setup command:
+   - `SetupHeadless`
 
-2. Add a symbolic link to the system installed FreeType:
-   - `rm ~/Resonite/Headless/libfreetype6.so`
-   - `ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ~/Resonite/Headless/libfreetype.so.6`
+2. Run the headless with the provided command
+   - `RunHeadless`
 
-3. Test run the headless client:
-   - `cd ~/Resonite/Headless`
-   - `mono Resonite.exe`
+### Extra commands
 
-4. If alls working well, you can shutdown the headless with:
-   - `shutdown`
+- `CleanSetupHeadless` - completely reinstalls the headless client
 
-### Configure the headless
+- `UpdateHeadless` - updates the headless client
 
-1. Copy the config:
-   - `cd ~/Resonite/Headless/Config`
-   - `cp DefaultConfig.json Config.json`
-
-2. Edit the config (login credentials, world url, etc):
-   - `nano ./Config.json`
-
-3. Run the headless again to confirm changes:
-   - `cd ../`
-   - `mono Resonite.exe`
+- `UpdateConfig` - updates the headless config after a NixOS rebuild without updating/reinstalling the headless client
 
 If everything is working up to this point, congrats, you have a functional NixOS Resonite Headless. This guide will change over time and I'll try to make it as simple as possible.

@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  # CHANGE THESE
   nixUserName = "gloopie";
   betaPassword = "Send /headlessCode to the Resonite Bot for the code";
   steamUsername = "YOURUSERNAME";
@@ -54,6 +55,9 @@ let
     "allowedUrlHosts": null,
     "autoSpawnItems": null
   }'';
+
+  # Everything beyond this point does not need to be changed
+  # but you can edit it anyway for further customization
   
   SetupHeadless = pkgs.writeShellScriptBin "SetupHeadless" 
   ''
