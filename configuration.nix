@@ -173,7 +173,7 @@ in
   users.users.${nixUsername} = 
   {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" ];
   };
 
   # Uncomment for auto login
@@ -208,6 +208,7 @@ in
     ClearDatabase
   ];
 
+  networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
   system.stateVersion = "24.05";
