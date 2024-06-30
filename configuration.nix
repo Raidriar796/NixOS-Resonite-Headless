@@ -2,7 +2,7 @@
 
 let
   # CHANGE THESE
-  nixUserName = "gloopie";
+  nixUsername = "gloopie";
   betaPassword = "Send /headlessCode to the Resonite Bot for the code";
   steamUsername = "YOURUSERNAME";
   steamPassword = "YOURPASSWORD";
@@ -104,14 +104,14 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Set a password with passwd
-  users.users.${userName} = 
+  users.users.${nixUsername} = 
   {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
 
   # Uncomment for auto login
-  #services.getty.autologinUser = userName;
+  #services.getty.autologinUser = nixUsername;
     
   environment.systemPackages =
   [
