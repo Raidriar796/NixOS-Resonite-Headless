@@ -55,27 +55,64 @@ let
     "allowedUrlHosts": null,
     "autoSpawnItems": null
   }'';
+  envVars = "";   
+  launchArgs = "";
+  useRML = true;  
 
-  # Everything beyond this point does not need to be changed
-  # but you can edit it anyway for further customization
-  
-  SetupHeadless = pkgs.writeShellScriptBin "SetupHeadless" 
+  SetupHeadless = if (useRML == true) then pkgs.writeShellScriptBin "SetupHeadless" 
   ''
     DepotDownloader -app 2519830 -beta headless -betapassword ${betaPassword} -username ${steamUsername} -password ${steamPassword} -dir ~/Resonite/ -validate
-    rm ~/Resonite/Headless/libfreetype6.so
-    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ~/Resonite/Headless/libfreetype.so.6
-    mkdir ~/Resonite/Headless/Config/
-    echo '${resoConfig}' >| ~/Resonite/Headless/Config/Config.json
+    cd ~/Resonite/Headless/
+    rm ./libfreetype6.so
+    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype.so.6
+    mkdir ./Config/
+    echo '${resoConfig}' >| ./Config/Config.json
+    mkdir ./Libraries/
+    mkdir ./rml_config/
+    mkdir ./rml_libs/
+    mkdir ./rml_mods/
+    cd ./Libraries/
+    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/ResoniteModLoader.dll
+    cd ../rml_libs/
+    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony.dll
+  ''
+  else pkgs.writeShellScriptBin "SetupHeadless" 
+  ''  
+    DepotDownloader -app 2519830 -beta headless -betapassword ${betaPassword} -username ${steamUsername} -password ${steamPassword} -dir ~/Resonite/ -validate
+    cd ~/Resonite/Headless/
+    rm ./libfreetype6.so
+    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype.so.6
+    mkdir ./Config/
+    echo '${resoConfig}' >| ./Config/Config.json
   '';
 
-  CleanSetupHeadless = pkgs.writeShellScriptBin "CleanSetupHeadless" 
+  CleanSetupHeadless = if (useRML == true) then pkgs.writeShellScriptBin "CleanSetupHeadless" 
   ''
     rm -r ~/Resonite
     DepotDownloader -app 2519830 -beta headless -betapassword ${betaPassword} -username ${steamUsername} -password ${steamPassword} -dir ~/Resonite/ -validate
-    rm ~/Resonite/Headless/libfreetype6.so
-    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ~/Resonite/Headless/libfreetype.so.6
-    mkdir ~/Resonite/Headless/Config/
-    echo '${resoConfig}' >| ~/Resonite/Headless/Config/Config.json
+    cd ~/Resonite/Headless/
+    rm ./libfreetype6.so
+    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype.so.6
+    mkdir ./Config/
+    echo '${resoConfig}' >| ./Config/Config.json
+    mkdir ./Libraries/
+    mkdir ./rml_config/
+    mkdir ./rml_libs/
+    mkdir ./rml_mods/
+    cd ./Libraries/
+    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/ResoniteModLoader.dll
+    cd ../rml_libs/
+    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony.dll
+  ''
+  else pkgs.writeShellScriptBin "CleanSetupHeadless" 
+  ''
+    rm -r ~/Resonite
+    DepotDownloader -app 2519830 -beta headless -betapassword ${betaPassword} -username ${steamUsername} -password ${steamPassword} -dir ~/Resonite/ -validate
+    cd ~/Resonite/Headless/
+    rm ./libfreetype6.so
+    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype.so.6
+    mkdir ./Config/
+    echo '${resoConfig}' >| ./Config/Config.json
   '';
 
   UpdateHeadless = pkgs.writeShellScriptBin "UpdateHeadless" 
@@ -88,10 +125,29 @@ let
     echo '${resoConfig}' >| ~/Resonite/Headless/Config/Config.json
   '';
 
-  RunHeadless = pkgs.writeShellScriptBin "RunHeadless" 
+  UpdateRML = if (useRML == true) then pkgs.writeShellScriptBin "UpdateRML"
+  ''
+    cd ~/Resonite/Headless/Libraries/
+    rm ResoniteModLoader.dll
+    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/ResoniteModLoader.dll
+    cd ../rml_libs/
+    rm 0Harmony.dll
+    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony.dll
+  ''
+  else pkgs.writeShellScriptBin "UpdateRML"
+  '' 
+    echo "Resonite Mod Loader is not enabled, set useRML to true in configuration.nix, rebuild, then run SetupHeadless or CleanSetupHeadless to enable Resonite Mod loader"
+  '';
+
+  RunHeadless = if (useRML == true) then pkgs.writeShellScriptBin "RunHeadless"
   '' 
     cd ~/Resonite/Headless/
-    mono ./Resonite.exe
+    ${envVars} mono ./Resonite.exe -LoadAssembly Libraries/ResoniteModLoader.dll ${launchArgs}
+  ''
+  else pkgs.writeShellScriptBin "RunHeadless"   
+  '' 
+    cd ~/Resonite/Headless/
+    ${envVars} mono ./Resonite.exe ${launchArgs}
   '';
 in
 {
@@ -136,6 +192,7 @@ in
     CleanSetupHeadless
     UpdateHeadless
     UpdateConfig
+    UpdateRML
     RunHeadless
   ];
 
