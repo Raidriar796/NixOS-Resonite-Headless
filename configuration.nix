@@ -161,6 +161,7 @@ in
   [
     # System packages
     pkgs.btop
+    pkgs.fastfetch
     pkgs.nano
     pkgs.wget
 

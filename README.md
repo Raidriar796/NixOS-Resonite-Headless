@@ -97,4 +97,14 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 - `UpdateRML` - Updates Resonite Mod Loader
 
+### Preinstalled programs
+
+- `btop` - resource monitor
+
+- `fastfetch` - quick system info view
+
+- `nano` - text editor
+
+- `wget` - file downloader
+
 If everything is working up to this point, congrats, you have a functional NixOS Resonite Headless. This guide will change over time and I'll try to make it as simple as possible.
