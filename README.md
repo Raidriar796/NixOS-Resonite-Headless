@@ -95,6 +95,8 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 - `UpdateHeadless` - Updates the headless client
 
+- `UpdateNixos` - Updates and cleans the system
+
 - `UpdateRML` - Updates Resonite Mod Loader
 
 ### Preinstalled programs

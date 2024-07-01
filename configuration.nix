@@ -128,6 +128,14 @@ let
     ${envVars} mono ./Resonite.exe ${RMLLaunchArg} ${launchArgs}
   '';
 
+  UpdateNixos = pkgs.writeShellScriptBin "UpdateNixos"
+  ''
+    sudo nix-channel --update
+    sudo nixos-rebuild switch
+    nix-collect-garbage
+    sudo nix-store --optimize
+  '';
+
   # Shell scripts for automation
   Automation.InstallRML = if (useRML == true) then pkgs.writeShellScriptBin "Automation.InstallRML"
   ''
@@ -183,6 +191,7 @@ in
     SetupHeadless
     UpdateConfig
     UpdateHeadless
+    UpdateNixos
     UpdateRML
     
     # Shell scripts to help automation
