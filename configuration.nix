@@ -3,7 +3,8 @@
 let
   # CHANGE THESE
   nixUsername = "gloopie";
-  betaPassword = "Send /headlessCode to the Resonite Bot for the code";
+  nixAutoLogin = false;
+  betaPassword = "BETAPASSWORD"; # Send /headlessCode to the Resonite Bot for the code
   steamUsername = "YOURUSERNAME";
   steamPassword = "YOURPASSWORD";
   resoConfig = ''{
@@ -57,7 +58,10 @@ let
   }'';
   envVars = "";   
   launchArgs = "";
-  useRML = true;  
+  useRML = false;
+
+  # Everything beyond this point does not need to be configured
+  # but for more advanced users feel free to change whatever
 
   SetupHeadless = if (useRML == true) then pkgs.writeShellScriptBin "SetupHeadless" 
   ''
@@ -176,9 +180,8 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  # Uncomment for auto login
-  #services.getty.autologinUser = nixUsername;
-    
+  services.getty.autologinUser = if (nixAutoLogin == true) then nixUsername else null;
+      
   environment.systemPackages =
   [
     # System packages
