@@ -15,7 +15,9 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 ### Current Functions
 - Downloads all neccesary software and dependancies
 - Headless client installation, reinsallation, and update commands
-- Resonite Mod Loader installation
+- [Resonite Mod Loader](<https://github.com/resonite-modding-group/resonitemodloader>) installation
+- Mod installation, currently supported mods:
+  - [Outflow](<https://github.com/BlueCyro/Outflow>)
 
 ### Planned Functions
 - Mod fetching
@@ -95,18 +97,20 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 - `UpdateHeadless` - Updates the headless client
 
-- `UpdateNixos` - Updates and cleans the system
+- `UpdateMods` - Updates Resonite Mod Loader and mods enabled through the system config
 
-- `UpdateRML` - Updates Resonite Mod Loader
+- `UpdateNixos` - Updates and cleans the system
 
 ### Preinstalled programs
 
-- `btop` - resource monitor
+- `btop` - Resource monitor
 
-- `fastfetch` - quick system info view
+- `fastfetch` - Quick system info view
 
-- `nano` - text editor
+- `nano` - Text editor
 
-- `wget` - file downloader
+- `tmux` - Terminal session manager
+
+- `wget` - File downloader
 
 If everything is working up to this point, congrats, you have a functional NixOS Resonite Headless. This guide will change over time and I'll try to make it as simple as possible.

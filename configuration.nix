@@ -62,13 +62,20 @@ let
   nixAutoLogin = false;
   envVars = "";   
   launchArgs = "";
+  # Resonite Mod Loader: https://github.com/resonite-modding-group/resonitemodloader
   useRML = false;
+  # The following values require useRML to be true to work
+  # Outflow: https://github.com/BlueCyro/Outflow
+  useOutflow = false;
 
   # Everything beyond this point does not need to be configured
   # but for more advanced users feel free to change whatever
 
   # Values
-  RMLLaunchArg = if (useRML == true) then "-LoadAssembly Libraries/ResoniteModLoader.dll" else "";
+  rmlLaunchArg = if (useRML == true) then "-LoadAssembly Libraries/ResoniteModLoader.dll" else "";
+  installOutflow = if (useRML == true) then
+  if (useOutflow == true) then "wget https://github.com/BlueCyro/Outflow/releases/latest/download/Outflow.dll" else "rm Outflow.dll"
+  else "";
 
   # Shell scripts for the user
   UpdateHeadless = pkgs.writeShellScriptBin "UpdateHeadless" 
@@ -88,8 +95,8 @@ let
     rm ./libfreetype6.so
     ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype.so.6
     mkdir ./Config/
-    UpdateConfig
     Automation.InstallRML
+    UpdateConfig
   '';
 
   CleanSetupHeadless = pkgs.writeShellScriptBin "CleanSetupHeadless" 
@@ -98,7 +105,7 @@ let
     SetupHeadless
   '';
 
-  UpdateRML = if (useRML == true) then pkgs.writeShellScriptBin "UpdateRML"
+  UpdateMods = if (useRML == true) then pkgs.writeShellScriptBin "UpdateMods"
   ''
     cd ~/Resonite/Headless/Libraries/
     rm ResoniteModLoader.dll
@@ -106,10 +113,12 @@ let
     cd ../rml_libs/
     rm 0Harmony.dll
     wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony.dll
+    cd ../rml_mods/
+    ${installOutflow} 
   ''
-  else pkgs.writeShellScriptBin "UpdateRML"
+  else pkgs.writeShellScriptBin "UpdateMods"
   '' 
-    echo "Resonite Mod Loader is not enabled, set useRML to true in configuration.nix, rebuild, then run SetupHeadless or CleanSetupHeadless to enable Resonite Mod loader"
+    echo "Resonite Mod Loader is not enabled, set useRML to true in configuration.nix, rebuild, then run SetupHeadless or CleanSetupHeadless to enable Resonite Mod Loader"
   '';
   
   ClearCache = pkgs.writeShellScriptBin "ClearCache"
@@ -125,7 +134,7 @@ let
   RunHeadless = pkgs.writeShellScriptBin "RunHeadless"
   '' 
     cd ~/Resonite/Headless/
-    ${envVars} mono ./Resonite.exe ${RMLLaunchArg} ${launchArgs}
+    ${envVars} mono ./Resonite.exe ${rmlLaunchArg} ${launchArgs}
   '';
 
   UpdateNixos = pkgs.writeShellScriptBin "UpdateNixos"
@@ -143,9 +152,9 @@ let
     mkdir ./rml_config/
     mkdir ./rml_libs/
     mkdir ./rml_mods/
-    UpdateRML
+    UpdateMods
   '' 
-  else pkgs.writeShellScriptBin "InstallRML" '''';
+  else pkgs.writeShellScriptBin "Automation.InstallRML" '''';
 in
 {
   imports = 
@@ -171,6 +180,7 @@ in
     pkgs.btop
     pkgs.fastfetch
     pkgs.nano
+    pkgs.tmux 
     pkgs.wget
 
     # For downloading from Steam
@@ -191,8 +201,8 @@ in
     SetupHeadless
     UpdateConfig
     UpdateHeadless
+    UpdateMods
     UpdateNixos
-    UpdateRML
     
     # Shell scripts to help automation
     Automation.InstallRML
