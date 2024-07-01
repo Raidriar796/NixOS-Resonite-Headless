@@ -59,6 +59,8 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
    Optional:
 
+   - `nixAutoLogin`
+
    - `envVars`
 
    - `launchArgs`
@@ -85,14 +87,14 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 - `CleanSetupHeadless` - Completely reinstalls the headless client
 
-- `UpdateHeadless` - Updates the headless client
-
-- `UpdateConfig` - Updates the headless config after a NixOS rebuild without updating/reinstalling the headless client
-
-- `UpdateRML` - Updates Resonite Mod Loader
-
 - `ClearCache` - Deletes the cache folder
 
 - `ClearDatabase` - Deletes the data folder
+
+- `UpdateConfig` - Updates the headless config after a NixOS rebuild without updating/reinstalling the headless client
+
+- `UpdateHeadless` - Updates the headless client
+
+- `UpdateRML` - Updates Resonite Mod Loader
 
 If everything is working up to this point, congrats, you have a functional NixOS Resonite Headless. This guide will change over time and I'll try to make it as simple as possible.
