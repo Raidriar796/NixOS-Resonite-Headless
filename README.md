@@ -17,7 +17,9 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 - Headless client installation, reinsallation, and update commands
 - [Resonite Mod Loader](<https://github.com/resonite-modding-group/resonitemodloader>) installation
 - Mod installation, currently supported mods:
+  - [Headless Tweaks](<https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks>)
   - [Outflow](<https://github.com/BlueCyro/Outflow>)
+  - [Stressless Headless](<https://github.com/Raidriar796/StresslessHeadless>)
 
 ### Planned Functions
 - Mod fetching
@@ -68,9 +70,13 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
    - `launchArgs`
 
-   - `useRML`
+   - `resoniteModLoader`
 
-   - `useOutflow`
+   - `headlessTweaks`
+
+   - `outflow`
+
+   - `stresslessHeadless`
 
 3. Test the config by running:
    - `sudo nixos-rebuild test`

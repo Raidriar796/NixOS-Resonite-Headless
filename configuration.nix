@@ -62,17 +62,17 @@ let
   nixAutoLogin = false;
   envVars = "";   
   launchArgs = "";
-  # Resonite Mod Loader: https://github.com/resonite-modding-group/resonitemodloader
-  useRML = false;
-  # The following values require useRML to be true to work
-  # Outflow: https://github.com/BlueCyro/Outflow
-  useOutflow = false;
+  # The following values are mods which require resoniteModLoader to be true to work
+  resoniteModLoader = false;  # https://github.com/resonite-modding-group/resonitemodloader
+  headlessTweaks = false;     # https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks
+  outflow = false;            # https://github.com/BlueCyro/Outflow
+  stresslessHeadless = false; # https://github.com/Raidriar796/StresslessHeadless
 
   # Everything beyond this point does not need to be configured
   # but for more advanced users feel free to change whatever
 
   # Values
-  installRML = if (useRML == true) then
+  installRML = if (resoniteModLoader == true) then
   ''
     mkdir ./Libraries/
     mkdir ./rml_config/
@@ -82,10 +82,18 @@ let
   '' 
   else '''';
 
-  rmlLaunchArg = if (useRML == true) then "-LoadAssembly Libraries/ResoniteModLoader.dll" else "";
+  rmlLaunchArg = if (resoniteModLoader == true) then "-LoadAssembly Libraries/ResoniteModLoader.dll" else "";
 
-  installOutflow = if (useRML == true) then
-  if (useOutflow == true) then "wget https://github.com/BlueCyro/Outflow/releases/latest/download/Outflow.dll" else "rm Outflow.dll"
+  installHeadlessTweaks = if (resoniteModLoader == true) then
+  if (headlessTweaks == true) then "wget https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll" else "rm HeadlessTweaks.dll"
+  else "";
+
+  installOutflow = if (resoniteModLoader == true) then
+  if (outflow == true) then "wget https://github.com/BlueCyro/Outflow/releases/latest/download/Outflow.dll" else "rm Outflow.dll"
+  else "";
+
+  installStresslessHeadless  = if (resoniteModLoader == true) then
+  if (stresslessHeadless == true) then "wget https://github.com/Raidriar796/StresslessHeadless/releases/latest/download/StresslessHeadless.dll" else "rm StresslessHeadless.dll"
   else "";
 
   # Shell scripts
@@ -116,7 +124,7 @@ let
     SetupHeadless
   '';
 
-  UpdateMods = if (useRML == true) then pkgs.writeShellScriptBin "UpdateMods"
+  UpdateMods = if (resoniteModLoader == true) then pkgs.writeShellScriptBin "UpdateMods"
   ''
     cd ~/Resonite/Headless/Libraries/
     rm ResoniteModLoader.dll
@@ -125,11 +133,13 @@ let
     rm 0Harmony.dll
     wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony.dll
     cd ../rml_mods/
-    ${installOutflow} 
+    ${installHeadlessTweaks}
+    ${installOutflow}
+    ${installStresslessHeadless}   
   ''
   else pkgs.writeShellScriptBin "UpdateMods"
   '' 
-    echo "Resonite Mod Loader is not enabled, set useRML to true in configuration.nix, rebuild, then run SetupHeadless or CleanSetupHeadless to enable Resonite Mod Loader"
+    echo "Resonite Mod Loader is not enabled, set resoniteModLoader to true in configuration.nix, rebuild, then run SetupHeadless or CleanSetupHeadless to enable Resonite Mod Loader"
   '';
   
   ClearCache = pkgs.writeShellScriptBin "ClearCache"
