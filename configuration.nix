@@ -72,12 +72,23 @@ let
   # but for more advanced users feel free to change whatever
 
   # Values
+  installRML = if (useRML == true) then
+  ''
+    mkdir ./Libraries/
+    mkdir ./rml_config/
+    mkdir ./rml_libs/
+    mkdir ./rml_mods/
+    UpdateMods
+  '' 
+  else '''';
+
   rmlLaunchArg = if (useRML == true) then "-LoadAssembly Libraries/ResoniteModLoader.dll" else "";
+
   installOutflow = if (useRML == true) then
   if (useOutflow == true) then "wget https://github.com/BlueCyro/Outflow/releases/latest/download/Outflow.dll" else "rm Outflow.dll"
   else "";
 
-  # Shell scripts for the user
+  # Shell scripts
   UpdateHeadless = pkgs.writeShellScriptBin "UpdateHeadless" 
   '' 
     steamcmd +force_install_dir ~/Resonite +login ${steamUsername} ${steamPassword} +app_license_request 2519830 +app_update 2519830 -beta headless -betapassword ${betaPassword} validate +quit
@@ -95,7 +106,7 @@ let
     rm ./libfreetype6.so
     ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype.so.6
     mkdir ./Config/
-    Automation.InstallRML
+    ${installRML}
     UpdateConfig
   '';
 
@@ -144,17 +155,6 @@ let
     nix-collect-garbage
     sudo nix-store --optimize
   '';
-
-  # Shell scripts for automation
-  Automation.InstallRML = if (useRML == true) then pkgs.writeShellScriptBin "Automation.InstallRML"
-  ''
-    mkdir ./Libraries/
-    mkdir ./rml_config/
-    mkdir ./rml_libs/
-    mkdir ./rml_mods/
-    UpdateMods
-  '' 
-  else pkgs.writeShellScriptBin "Automation.InstallRML" '''';
 in
 {
   imports = 
@@ -191,7 +191,7 @@ in
     pkgs.freetype
     pkgs.mono
 
-    # Shell scripts for the user
+    # Shell scripts
     CleanSetupHeadless
     ClearCache
     ClearDatabase
@@ -201,9 +201,6 @@ in
     UpdateHeadless
     UpdateMods
     UpdateNixos
-    
-    # Shell scripts to help automation
-    Automation.InstallRML
   ];
 
   networking.networkmanager.enable = true;

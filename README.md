@@ -21,6 +21,7 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 ### Planned Functions
 - Mod fetching
+- ARM support
 - Docker setup
 - Flake for non NixOS systems
 
@@ -68,6 +69,8 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
    - `launchArgs`
 
    - `useRML`
+
+   - `useOutflow`
 
 3. Test the config by running:
    - `sudo nixos-rebuild test`
