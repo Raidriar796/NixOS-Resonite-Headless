@@ -80,7 +80,7 @@ let
   # Shell scripts for the user
   UpdateHeadless = pkgs.writeShellScriptBin "UpdateHeadless" 
   '' 
-    DepotDownloader -app 2519830 -beta headless -betapassword ${betaPassword} -username ${steamUsername} -password ${steamPassword} -dir ~/Resonite/ -validate
+    steamcmd +force_install_dir ~/Resonite +login ${steamUsername} ${steamPassword} +app_license_request 2519830 +app_update 2519830 -beta headless -betapassword ${betaPassword} validate +quit
   '';
 
   UpdateConfig = pkgs.writeShellScriptBin "UpdateConfig" 
@@ -173,7 +173,8 @@ in
   };
 
   services.getty.autologinUser = if (nixAutoLogin == true) then nixUsername else null;
-      
+
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages =
   [
     # System packages
@@ -184,10 +185,7 @@ in
     pkgs.wget
 
     # For downloading from Steam
-    pkgs.depotdownloader
-
-    # DepotDownloader dependancy
-    pkgs.dotnet-runtime_8
+    pkgs.steamPackages.steamcmd
 
     # Headless client dependancies
     pkgs.freetype
