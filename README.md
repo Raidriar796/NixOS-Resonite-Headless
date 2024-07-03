@@ -22,7 +22,6 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
   - [Stressless Headless](<https://github.com/Raidriar796/StresslessHeadless>)
 
 ### Planned Functions
-- Mod fetching
 - ARM support
 - Docker setup
 - Flake for non NixOS systems
@@ -81,10 +80,8 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 3. Test the config by running:
    - `sudo nixos-rebuild test`
 
-4. Rebuild and restart the system with the following:
-   - `sudo nixos-rebuild boot`
-
-   - `sudo reboot -h now`
+4. If there are no issues, rebuild the system with the following:
+   - `sudo nixos-rebuild switch`
 
 ### Download and run the headless client
 
