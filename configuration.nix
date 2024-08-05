@@ -155,7 +155,7 @@ let
   RunHeadless = pkgs.writeShellScriptBin "RunHeadless"
   '' 
     cd ~/Resonite/Headless/
-    ${envVars} mono ./Resonite.exe ${rmlLaunchArg} ${launchArgs}
+    ${envVars} dotnet ./Resonite.dll ${rmlLaunchArg} ${launchArgs}
   '';
 
   UpdateNixos = pkgs.writeShellScriptBin "UpdateNixos"
@@ -199,7 +199,7 @@ in
 
     # Headless client dependancies
     pkgs.freetype
-    pkgs.mono
+    pkgs.dotnet-runtime_8
 
     # Shell scripts
     CleanSetupHeadless
