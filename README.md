@@ -38,12 +38,12 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
     - This assumes you will be using systemd as your boot loader, you will need to change the config to grub yourself if you want to use grub.  
 
 ### Download the config and rebuild
-1. Replace `/etc/nixos/configuration.nix` with the one in this repo, this can be done manually or by directly downloading it, example (requires wget to be installed):
+1. Replace `/etc/nixos/configuration.nix` with the one in this repo, this can be done manually or by directly downloading it, example:
    - `cd /etc/nixos/`
 
    - `sudo rm configuration.nix`
 
-   - `sudo wget https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration.nix`
+   - `sudo curl -L -o "configuration.nix" "https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration.nix"`
 
 2. Make initial changes to the config. The config is setup to do most of the leg work but at the very least you need to change the values at the top of the config, such as renaming the non root user and adding login credentials. Edit the config with:
 
