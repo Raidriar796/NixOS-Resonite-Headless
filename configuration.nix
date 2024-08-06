@@ -112,7 +112,7 @@ let
     UpdateHeadless
     cd ~/Resonite/Headless/
     rm ./libfreetype6.so
-    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype.so.6
+    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype6.so
     mkdir ./Config/
     ${installRML}
     UpdateConfig
