@@ -171,10 +171,33 @@ let
 
   UpdateNixos = pkgs.writeShellScriptBin "UpdateNixos"
   ''
-    sudo nix-channel --update
-    sudo nixos-rebuild switch
+    sudo nixos-rebuild --update switch
     nix-collect-garbage
     sudo nix-store --optimize
+  '';
+
+  AsciiArt = 
+  '' 
+    $4          ▗▄▄▄       $5▗▄▄▄▄    ▄▄▄▖
+    $4          ▜███▙       $5▜███▙  ▟███▛
+    $4           ▜███▙       $5▜███▙▟███▛
+    $4            ▜███▙       $5▜██████▛
+    $4     ▟█████████████████▙ $5▜████▛     $6▟▙
+    $4    ▟███████████████████▙ $5▜███▙    $6▟██▙
+    $3           ▄▄▄▄▖           $5▜███▙  $6▟███▛
+    $3          ▟███▛             $5▜██▛ $6▟███▛
+    $3         ▟███▛               $5▜▛ $6▟███▛
+    $3▟███████████▛                  $6▟██████████▙
+    $3▜██████████▛                  $6▟███████████▛
+    $3      ▟███▛ $2▟▙               $6▟███▛
+    $3     ▟███▛ $2▟██▙             $6▟███▛
+    $3    ▟███▛  $2▜███▙           $6▝▀▀▀▀
+    $3    ▜██▛    $2▜███▙ $1▜██████████████████▛
+    $3     ▜▛     $2▟████▙ $1▜████████████████▛
+    $2           ▟██████▙       $1▜███▙
+    $2          ▟███▛▜███▙       $1▜███▙
+    $2         ▟███▛  ▜███▙       $1▜███▙
+    $2         ▝▀▀▀    ▀▀▀▀▘       $1▀▀▀▘
   '';
 in
 {
@@ -224,6 +247,11 @@ in
     UpdateMods
     UpdateNixos
   ];
+
+  programs.bash.shellAliases = 
+  {
+    fastfetch = "echo '${AsciiArt}' >| /tmp/GloopieNixosLogo.txt && fastfetch -l /tmp/GloopieNixosLogo.txt --logo-color-1 red --logo-color-2 yellow --logo-color-3 green --logo-color-4 cyan --logo-color-5 blue --logo-color-6 magenta";
+  };
 
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
