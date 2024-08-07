@@ -131,7 +131,7 @@ let
     wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/ResoniteModLoader.dll
     cd ../rml_libs/
     rm 0Harmony.dll
-    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony.dll
+    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony-Net8.dll
     cd ../rml_mods/
     ${installHeadlessTweaks}
     ${installOutflow}
