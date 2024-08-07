@@ -113,6 +113,14 @@ let
     SetupHeadless
   '';
 
+  FullCleanSetupHeadless = pkgs.writeShellScriptBin "FullCleanSetupHeadless" 
+  ''
+    rm -r ${cacheFolder}
+    rm -r ${dataFolder}
+    rm -r ${logFolder}
+    CleanSetupHeadless
+  '';
+
   UpdateMods = if (resoniteModLoader == true) then pkgs.writeShellScriptBin "UpdateMods"
   ''
     cd ~/Resonite/Headless/Libraries/
@@ -208,6 +216,7 @@ in
     ClearCache
     ClearData
     ClearLogs
+    FullCleanSetupHeadless
     RunHeadless
     SetupHeadless
     UpdateConfig
