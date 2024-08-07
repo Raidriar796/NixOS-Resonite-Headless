@@ -9,8 +9,7 @@ let
   steamUsername = "YOURUSERNAME";
   steamPassword = "YOURPASSWORD";
   resoConfig = ''{
-    "universeId": null,
-    "tickRate": 60.0,
+    "tickRate": 30.0,
     "maxConcurrentAssetTransfers": 4,
     "usernameOverride": null,
     "loginCredential": null,
@@ -26,42 +25,25 @@ let
         "useCustomJoinVerifier": false,
         "hideFromPublicListing": null,
         "tags": null,
-        "mobileFriendly": false,
         "loadWorldURL": null,
         "loadWorldPresetName": "Grid",
-        "overrideCorrespondingWorldId": null,
         "forcePort": null,
         "keepOriginalRoles": false,
         "defaultUserRoles": null,
-        "roleCloudVariable": null,
-        "allowUserCloudVariable": null,
-        "denyUserCloudVariable": null,
-        "requiredUserJoinCloudVariable": null,
-        "requiredUserJoinCloudVariableDenyMessage": null,
         "awayKickMinutes": -1.0,
-        "parentSessionIds": null,
-        "autoInviteUsernames": null,
-        "autoInviteMessage": null,
-        "saveAsOwner": null,
-        "autoRecover": true,
         "idleRestartInterval": -1.0,
-        "forcedRestartInterval": -1.0,
-        "saveOnExit": false,
-        "autosaveInterval": -1.0,
-        "autoSleep": true
+        "forcedRestartInterval": -1.0
       }
-    ],
-    "dataFolder": null,
-    "cacheFolder": null,
-    "logsFolder": null,
-    "allowedUrlHosts": null,
-    "autoSpawnItems": null
+    ]
   }'';
 
   # These values are optional but are available for extra
   nixAutoLogin = false;
   envVars = "";   
   launchArgs = "";
+  cacheFolder = "/home/${nixUsername}/cache/";
+  dataFolder = "/home/${nixUsername}/data/";
+  logFolder = "/home/${nixUsername}/log/";
   # The following values are mods which require resoniteModLoader to be true to work
   resoniteModLoader = false;  # https://github.com/resonite-modding-group/resonitemodloader
   headlessTweaks = false;     # https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks
@@ -175,7 +157,6 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Set a password with passwd
   users.users.${nixUsername} = 
   {
     isNormalUser = true;
