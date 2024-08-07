@@ -41,9 +41,9 @@ let
   nixAutoLogin = false;
   envVars = "";   
   launchArgs = "";
-  cacheFolder = "/home/${nixUsername}/cache/";
-  dataFolder = "/home/${nixUsername}/data/";
-  logFolder = "/home/${nixUsername}/log/";
+  cacheFolder = "/home/${nixUsername}/Cache/";
+  dataFolder = "/home/${nixUsername}/Data/";
+  logFolder = "/home/${nixUsername}/Logs/";
   # The following values are mods which require resoniteModLoader to be true to work
   resoniteModLoader = false;  # https://github.com/resonite-modding-group/resonitemodloader
   headlessTweaks = false;     # https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks
@@ -57,7 +57,8 @@ let
   installRML = if (resoniteModLoader == true) then
   ''
     mkdir ./Libraries/
-    mkdir ./rml_config/
+    mkdir ~/rml_config/
+    ln -s ~/rml_config/ ./rml_config
     mkdir ./rml_libs/
     mkdir ./rml_mods/
     UpdateMods
@@ -96,6 +97,12 @@ let
     rm ./libfreetype6.so
     ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype6.so
     mkdir ./Config/
+    mkdir ${cacheFolder}  
+    ln -s ${cacheFolder} ./Cache
+    mkdir ${dataFolder}
+    ln -s ${dataFolder} ./Data
+    mkdir ${logFolder}
+    ln -s ${logFolder} ./Logs
     ${installRML}
     UpdateConfig
   '';
@@ -126,12 +133,20 @@ let
   
   ClearCache = pkgs.writeShellScriptBin "ClearCache"
   ''
-    rm -r ~/Resonite/Headless/Cache/
+    rm -r ${cacheFolder}
+    mkdir ${cacheFolder}
   '';
 
-  ClearDatabase = pkgs.writeShellScriptBin "ClearDatabase"
+  ClearData = pkgs.writeShellScriptBin "ClearData"
   ''
-    rm -r ~/Resonite/Headless/Data/
+    rm -r ${dataFolder}
+    mkdir ${dataFolder}
+  '';
+
+  ClearLogs = pkgs.writeShellScriptBin "ClearLogs"
+  '' 
+    rm -r ${logFolder}
+    mkdir ${logFolder}
   '';
 
   RunHeadless = pkgs.writeShellScriptBin "RunHeadless"
@@ -185,7 +200,8 @@ in
     # Shell scripts
     CleanSetupHeadless
     ClearCache
-    ClearDatabase
+    ClearData
+    ClearLogs
     RunHeadless
     SetupHeadless
     UpdateConfig
