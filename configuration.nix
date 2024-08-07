@@ -135,18 +135,24 @@ let
   ''
     rm -r ${cacheFolder}
     mkdir ${cacheFolder}
+    rm ~/Resonite/Headless/Cache
+    ln -s ${cacheFolder} ~/Resonite/Headless/Cache
   '';
 
   ClearData = pkgs.writeShellScriptBin "ClearData"
   ''
     rm -r ${dataFolder}
     mkdir ${dataFolder}
+    rm ~/Resonite/Headless/Data
+    ln -s ${cacheFolder} ~/Resonite/Headless/Data
   '';
 
   ClearLogs = pkgs.writeShellScriptBin "ClearLogs"
-  '' 
+  ''
     rm -r ${logFolder}
     mkdir ${logFolder}
+    rm ~/Resonite/Headless/Logs
+    ln -s ${cacheFolder} ~/Resonite/Headless/Logs
   '';
 
   RunHeadless = pkgs.writeShellScriptBin "RunHeadless"
