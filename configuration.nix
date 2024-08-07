@@ -144,8 +144,9 @@ let
   '';
 
   RunHeadless = pkgs.writeShellScriptBin "RunHeadless"
-  '' 
-    ${envVars} dotnet ${installDir}Resonite/Headless/Resonite.dll ${rmlLaunchArg} ${launchArgs}
+  ''
+    cd ${installDir}Resonite/Headless/
+    ${envVars} dotnet ./Resonite.dll ${rmlLaunchArg} ${launchArgs}
   '';
 
   UpdateNixos = pkgs.writeShellScriptBin "UpdateNixos"
