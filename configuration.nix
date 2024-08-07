@@ -37,13 +37,11 @@ let
     ]
   }'';
 
-  # These values are optional but are available for extra
+  # These values are optional but are available for extra configuration
   nixAutoLogin = false;
+  installDir = "$HOME/";
   envVars = "";   
   launchArgs = "";
-  cacheFolder = "/home/${nixUsername}/Cache/";
-  dataFolder = "/home/${nixUsername}/Data/";
-  logFolder = "/home/${nixUsername}/Logs/";
   # The following values are mods which require resoniteModLoader to be true to work
   resoniteModLoader = false;  # https://github.com/resonite-modding-group/resonitemodloader
   headlessTweaks = false;     # https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks
@@ -56,11 +54,11 @@ let
   # Values
   installRML = if (resoniteModLoader == true) then
   ''
-    mkdir ./Libraries/
-    mkdir ~/rml_config/
-    ln -s ~/rml_config/ ./rml_config
-    mkdir ./rml_libs/
-    mkdir ./rml_mods/
+    mkdir ${installDir}Resonite/Headless/Libraries/
+    mkdir ${installDir}rml_config/
+    ln -s ${installDir}rml_config/ ${installDir}Resonite/Headless/rml_config
+    mkdir ${installDir}Resonite/Headless/rml_libs/
+    mkdir ${installDir}Resonite/Headless/rml_mods/
     UpdateMods
   '' 
   else '''';
@@ -68,71 +66,57 @@ let
   rmlLaunchArg = if (resoniteModLoader == true) then "-LoadAssembly Libraries/ResoniteModLoader.dll" else "";
 
   installHeadlessTweaks = if (resoniteModLoader == true) then
-  if (headlessTweaks == true) then "wget https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll" else "rm HeadlessTweaks.dll"
+  if (headlessTweaks == true) then "wget https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll -P ${installDir}Resonite/Headless/rml_mods/" else "rm HeadlessTweaks.dll"
   else "";
 
   installOutflow = if (resoniteModLoader == true) then
-  if (outflow == true) then "wget https://github.com/BlueCyro/Outflow/releases/latest/download/Outflow.dll" else "rm Outflow.dll"
+  if (outflow == true) then "wget https://github.com/BlueCyro/Outflow/releases/latest/download/Outflow.dll -P ${installDir}Resonite/Headless/rml_mods/" else "rm Outflow.dll"
   else "";
 
   installStresslessHeadless  = if (resoniteModLoader == true) then
-  if (stresslessHeadless == true) then "wget https://github.com/Raidriar796/StresslessHeadless/releases/latest/download/StresslessHeadless.dll" else "rm StresslessHeadless.dll"
+  if (stresslessHeadless == true) then "wget https://github.com/Raidriar796/StresslessHeadless/releases/latest/download/StresslessHeadless.dll -P ${installDir}Resonite/Headless/rml_mods/" else "rm StresslessHeadless.dll"
   else "";
 
   # Shell scripts
   UpdateHeadless = pkgs.writeShellScriptBin "UpdateHeadless" 
   '' 
-    steamcmd +force_install_dir ~/Resonite +login ${steamUsername} ${steamPassword} +app_license_request 2519830 +app_update 2519830 -beta headless -betapassword ${betaPassword} validate +quit
+    steamcmd +force_install_dir ${installDir}Resonite +login ${steamUsername} ${steamPassword} +app_license_request 2519830 +app_update 2519830 -beta headless -betapassword ${betaPassword} validate +quit
   '';
 
   UpdateConfig = pkgs.writeShellScriptBin "UpdateConfig" 
   '' 
-    echo '${resoConfig}' >| ~/Resonite/Headless/Config/Config.json
+    echo '${resoConfig}' >| ${installDir}Resonite/Headless/Config/Config.json
   '';
 
   SetupHeadless = pkgs.writeShellScriptBin "SetupHeadless" 
   ''
     UpdateHeadless
-    cd ~/Resonite/Headless/
-    rm ./libfreetype6.so
-    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ./libfreetype6.so
-    mkdir ./Config/
-    mkdir ${cacheFolder}  
-    ln -s ${cacheFolder} ./Cache
-    mkdir ${dataFolder}
-    ln -s ${dataFolder} ./Data
-    mkdir ${logFolder}
-    ln -s ${logFolder} ./Logs
+    cd ${installDir}Resonite/Headless/
+    rm ${installDir}Resonite/Headless/libfreetype6.so
+    ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ${installDir}Resonite/Headless/libfreetype6.so
+    mkdir ${installDir}Resonite/Headless/Config/
+    mkdir ${installDir}Resonite/Headless/Cache/
+    mkdir ${installDir}Resonite/Headless/Data/
+    mkdir ${installDir}Resonite/Headless/Logs/
     ${installRML}
     UpdateConfig
   '';
 
   CleanSetupHeadless = pkgs.writeShellScriptBin "CleanSetupHeadless" 
   ''
-    rm -r ~/Resonite
+    rm -r ${installDir}Resonite/
     SetupHeadless
-  '';
-
-  FullCleanSetupHeadless = pkgs.writeShellScriptBin "FullCleanSetupHeadless" 
-  ''
-    rm -r ${cacheFolder}
-    rm -r ${dataFolder}
-    rm -r ${logFolder}
-    CleanSetupHeadless
   '';
 
   UpdateMods = if (resoniteModLoader == true) then pkgs.writeShellScriptBin "UpdateMods"
   ''
-    cd ~/Resonite/Headless/Libraries/
-    rm ResoniteModLoader.dll
-    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/ResoniteModLoader.dll
-    cd ../rml_libs/
-    rm 0Harmony.dll
-    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony-Net8.dll
-    cd ../rml_mods/
+    rm ${installDir}Resonite/Headless/Libraries/ResoniteModLoader.dll
+    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/ResoniteModLoader.dll -P ${installDir}Resonite/Headless/Libraries/
+    rm ${installDir}Resonite/Headless/rml_libs/0Harmony-Net8.dll
+    wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony-Net8.dll -P ${installDir}Resonite/Headless/rml_libs/
     ${installHeadlessTweaks}
     ${installOutflow}
-    ${installStresslessHeadless}   
+    ${installStresslessHeadless}
   ''
   else pkgs.writeShellScriptBin "UpdateMods"
   '' 
@@ -141,32 +125,27 @@ let
   
   ClearCache = pkgs.writeShellScriptBin "ClearCache"
   ''
-    rm -r ${cacheFolder}
-    mkdir ${cacheFolder}
-    rm ~/Resonite/Headless/Cache
-    ln -s ${cacheFolder} ~/Resonite/Headless/Cache
+    rm -r ${installDir}Resonite/Headless/Cache/*
   '';
 
   ClearData = pkgs.writeShellScriptBin "ClearData"
   ''
-    rm -r ${dataFolder}
-    mkdir ${dataFolder}
-    rm ~/Resonite/Headless/Data
-    ln -s ${cacheFolder} ~/Resonite/Headless/Data
+    rm -r ${installDir}Resonite/Headless/Data/*
   '';
 
   ClearLogs = pkgs.writeShellScriptBin "ClearLogs"
   ''
-    rm -r ${logFolder}
-    mkdir ${logFolder}
-    rm ~/Resonite/Headless/Logs
-    ln -s ${cacheFolder} ~/Resonite/Headless/Logs
+    rm -r ${installDir}Resonite/Headless/Logs/*
+  '';
+
+  ClearModConfigs = pkgs.writeShellScriptBin "ClearModConfigs"
+  ''
+    rm -r ${installDir}rml_config/*
   '';
 
   RunHeadless = pkgs.writeShellScriptBin "RunHeadless"
   '' 
-    cd ~/Resonite/Headless/
-    ${envVars} dotnet ./Resonite.dll ${rmlLaunchArg} ${launchArgs}
+    ${envVars} dotnet ${installDir}Resonite/Headless/Resonite.dll ${rmlLaunchArg} ${launchArgs}
   '';
 
   UpdateNixos = pkgs.writeShellScriptBin "UpdateNixos"
@@ -239,7 +218,7 @@ in
     ClearCache
     ClearData
     ClearLogs
-    FullCleanSetupHeadless
+    ClearModConfigs
     RunHeadless
     SetupHeadless
     UpdateConfig
