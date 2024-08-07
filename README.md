@@ -97,7 +97,11 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 - `ClearCache` - Deletes the cache folder
 
-- `ClearDatabase` - Deletes the data folder
+- `ClearData` - Deletes the data folder
+
+- `ClearLogs` - Deletes the logs folder
+
+- `FullCleanSetupHeadless` - Completely reinstalls the headless clients and deletes the cache, data, and log folders
 
 - `UpdateConfig` - Updates the headless config after a NixOS rebuild without updating/reinstalling the headless client
 
