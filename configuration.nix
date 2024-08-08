@@ -66,15 +66,30 @@ let
   rmlLaunchArg = if (resoniteModLoader == true) then "-LoadAssembly Libraries/ResoniteModLoader.dll" else "";
 
   installHeadlessTweaks = if (resoniteModLoader == true) then
-  if (headlessTweaks == true) then "wget https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll -P ${installDir}Resonite/Headless/rml_mods/" else "rm HeadlessTweaks.dll"
+  if (headlessTweaks == true) then 
+  ''
+    rm ${installDir}Resonite/Headless/rml_mods/HeadlessTweaks.dll
+    wget https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll -P ${installDir}Resonite/Headless/rml_mods/
+  ''
+  else "rm ${installDir}Resonite/Headless/rml_mods/HeadlessTweaks.dll"
   else "";
 
   installOutflow = if (resoniteModLoader == true) then
-  if (outflow == true) then "wget https://github.com/BlueCyro/Outflow/releases/latest/download/Outflow.dll -P ${installDir}Resonite/Headless/rml_mods/" else "rm Outflow.dll"
+  if (outflow == true) then 
+  ''
+    rm ${installDir}Resonite/Headless/rml_mods/Outflow.dll
+    wget https://github.com/BlueCyro/Outflow/releases/latest/download/Outflow.dll -P ${installDir}Resonite/Headless/rml_mods/
+  ''
+  else "rm ${installDir}Resonite/Headless/rml_mods/Outflow.dll"
   else "";
 
   installStresslessHeadless  = if (resoniteModLoader == true) then
-  if (stresslessHeadless == true) then "wget https://github.com/Raidriar796/StresslessHeadless/releases/latest/download/StresslessHeadless.dll -P ${installDir}Resonite/Headless/rml_mods/" else "rm StresslessHeadless.dll"
+  if (stresslessHeadless == true) then
+  ''
+    rm ${installDir}Resonite/Headless/rml_mods/StresslessHeadless.dll
+    wget https://github.com/Raidriar796/StresslessHeadless/releases/latest/download/StresslessHeadless.dll -P ${installDir}Resonite/Headless/rml_mods/ 
+  ''
+  else "rm ${installDir}Resonite/Headless/rml_mods/StresslessHeadless.dll"
   else "";
 
   # Shell scripts
@@ -151,7 +166,8 @@ let
 
   UpdateNixos = pkgs.writeShellScriptBin "UpdateNixos"
   ''
-    sudo nixos-rebuild --update switch
+    sudo nix-channel --update
+    sudo nixos-rebuild switch
     nix-collect-garbage
     sudo nix-store --optimize
   '';
