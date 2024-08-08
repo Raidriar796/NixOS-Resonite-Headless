@@ -4,7 +4,7 @@ let
   # These values require changes for the config to work
   # Change nixUsername to whatever the existing user account name is
   # Send /headlessCode to the Resonite Bot for the beta password
-  nixUsername = "gloopie";
+  nixUsername = "nixos";
   betaPassword = "BETAPASSWORD";
   steamUsername = "YOURUSERNAME";
   steamPassword = "YOURPASSWORD";
@@ -106,13 +106,9 @@ let
   SetupHeadless = pkgs.writeShellScriptBin "SetupHeadless" 
   ''
     UpdateHeadless
-    cd ${installDir}Resonite/Headless/
     rm ${installDir}Resonite/Headless/libfreetype6.so
     ln -s /var/run/current-system/sw/lib/libfreetype.so.6 ${installDir}Resonite/Headless/libfreetype6.so
     mkdir ${installDir}Resonite/Headless/Config/
-    mkdir ${installDir}Resonite/Headless/Cache/
-    mkdir ${installDir}Resonite/Headless/Data/
-    mkdir ${installDir}Resonite/Headless/Logs/
     ${installRML}
     UpdateConfig
   '';

@@ -20,9 +20,9 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
   - [Headless Tweaks](<https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks>)
   - [Outflow](<https://github.com/BlueCyro/Outflow>)
   - [Stressless Headless](<https://github.com/Raidriar796/StresslessHeadless>)
+- ARM support (WIP)  
 
 ### Planned Functions
-- ARM support
 - Docker setup
 - Flake for non NixOS systems
 
@@ -60,14 +60,14 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
      };
    ```
 
-   
-
 ### Download the config and rebuild
 1. Replace `/etc/nixos/configuration.nix` with the one in this repo, this can be done manually or by directly downloading it, example:
 
    - `sudo rm /etc/nixos/configuration.nix`
 
-   - `sudo curl -L -o "/etc/nixos/configuration.nix" "https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration.nix"`
+   - For x86/x64: `sudo curl -L -o "/etc/nixos/configuration.nix" "https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration-x86_64-linux.nix"`
+
+   - For ARM: `sudo curl -L -o "/etc/nixos/configuration.nix" "https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration-aarch64-linux.nix"`
 
 2. Make initial changes to the config. The config is setup to do most of the leg work but at the very least you need to change the values at the top of the config, such as renaming the non root user and adding login credentials. Edit the config with:
 
@@ -84,6 +84,10 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
    - `steamPassword`
 
    - `resoConfig`
+
+   Required for ARM:
+   
+   - `systemThreads`
 
    Optional:
 
@@ -111,6 +115,7 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 1. Use the provided setup command:
    - `SetupHeadless`
+     - Note: this does not fully setup the headless for ARM yet, you will need to manually recompile FreeImage and Crunch. I'd recommend following [this guide](<https://github.com/BlueCyro/Resonite-Headless-on-ARM-instructions>)
 
 2. Run the headless with the provided command
    - `RunHeadless`
@@ -140,8 +145,6 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 - `btop` - Resource monitor
 
 - `fastfetch` - Quick system info view
-
-- `nano` - Text editor
 
 - `tmux` - Terminal session manager
 
