@@ -1,0 +1,13 @@
+diff --git a/Makefile.gnu b/Makefile.gnu
+index bdacb4d..e36c98c 100644
+--- a/Makefile.gnu
++++ b/Makefile.gnu
+@@ -15,7 +15,7 @@ LIBRARIES = -lstdc++
+ 
+ MODULES = $(SRCS:.c=.o)
+ MODULES := $(MODULES:.cpp=.o)
+-CFLAGS ?= -O3 -fPIC -fexceptions -fvisibility=hidden
++CFLAGS ?= -O3 -fPIC -fexceptions -fvisibility=hidden -DNPG_ARM_NEON_OPT=0
+ # OpenJPEG
+ CFLAGS += -DOPJ_STATIC 
+ # LibRaw
