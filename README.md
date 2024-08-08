@@ -39,11 +39,10 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 ### Download the config and rebuild
 1. Replace `/etc/nixos/configuration.nix` with the one in this repo, this can be done manually or by directly downloading it, example:
-   - `cd /etc/nixos/`
 
-   - `sudo rm configuration.nix`
+   - `sudo rm /etc/nixos/configuration.nix`
 
-   - `sudo curl -L -o "configuration.nix" "https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration.nix"`
+   - `sudo curl -L -o "/etc/nixos/configuration.nix" "https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration.nix"`
 
 2. Make initial changes to the config. The config is setup to do most of the leg work but at the very least you need to change the values at the top of the config, such as renaming the non root user and adding login credentials. Edit the config with:
 
@@ -95,13 +94,13 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 - `CleanSetupHeadless` - Completely reinstalls the headless client
 
-- `ClearCache` - Deletes the cache folder
+- `ClearCache` - Clears the Cache folder
 
-- `ClearData` - Deletes the data folder
+- `ClearData` - Clears the Data folder
 
-- `ClearLogs` - Deletes the logs folder
+- `ClearLogs` - Clears the Logs folder
 
-- `FullCleanSetupHeadless` - Completely reinstalls the headless clients and deletes the cache, data, and log folders
+- `ClearModConfigs` - Clears the rml_config folder
 
 - `UpdateConfig` - Updates the headless config after a NixOS rebuild without updating/reinstalling the headless client
 
