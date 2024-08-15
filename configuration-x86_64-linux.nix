@@ -201,6 +201,25 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  fileSystems."/" =
+  {
+    options =
+    [
+      "noatime"
+    ];
+  };
+
+  fileSystems."/tmp" =
+  { 
+    fsType = "tmpfs";
+    options =
+    [
+      "defaults"
+      "noatime"
+      "mode=1777"
+    ];
+  };
+
   users.users.${nixUsername} = 
   {
     isNormalUser = true;
