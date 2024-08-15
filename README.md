@@ -39,26 +39,7 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
    - If you're installing manually or with the minimal ISO, you can install the system off of the Resonite Headless config instead of switching configs after install
 
-2. Ensure `/etc/nixos/hardware-configuration.nix` is configured how you want:
-
-   - I highly recommend using `noatime` to help with R/W performance as Resonite likes to cache a lot of small files, which can *really* slow down R/W If you would like files to still have access time but still want some benefit, you can use `nodiratime` instead. example of how to do so:
-   ```
-   fileSystems."/" =
-     { 
-       device = "/dev/disk/by-uuid/[YourRootDiskUUID]";
-       fsType = "ext4";
-       options = [ "noatime" ];
-     };
-   ```
-
-   - I recommend setting /tmp to be a tmpfs if it's not already, like so:
-   ```
-     fileSystems."/tmp" =
-     { 
-       fsType = "tmpfs";
-       options = [ "defaults" "noatime" "mode=1777" ];
-     };
-   ```
+   - By default, the provided configs will mount `/` with `noatime` and `/tmp` is mounted as a `tmpfs`. There are not simplified variables to ease configuring this yet.
 
 ### Download the config and rebuild
 1. Replace `/etc/nixos/configuration.nix` with the one in this repo, this can be done manually or by directly downloading it, example:
