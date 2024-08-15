@@ -204,6 +204,25 @@ in
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
 
+  fileSystems."/" =
+  {
+    options =
+    [
+      "noatime"
+    ];
+  };
+
+  fileSystems."/tmp" =
+  { 
+    fsType = "tmpfs";
+    options =
+    [
+      "defaults"
+      "noatime"
+      "mode=1777"
+    ];
+  };
+
   users.users.${nixUsername} = 
   {
     isNormalUser = true;
