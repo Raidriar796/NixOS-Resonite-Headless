@@ -46,7 +46,6 @@ let
   # The following values are mods which require resoniteModLoader to be true to work
   resoniteModLoader = false;  # https://github.com/resonite-modding-group/resonitemodloader
   headlessTweaks = false;     # https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks
-  outflow = false;            # https://github.com/BlueCyro/Outflow
   stresslessHeadless = false; # https://github.com/Raidriar796/StresslessHeadless
 
   # Everything beyond this point does not need to be configured
@@ -73,15 +72,6 @@ let
     wget https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll -P ${installDir}Resonite/Headless/rml_mods/
   ''
   else "rm ${installDir}Resonite/Headless/rml_mods/HeadlessTweaks.dll"
-  else "";
-
-  installOutflow = if (resoniteModLoader == true) then
-  if (outflow == true) then 
-  ''
-    rm ${installDir}Resonite/Headless/rml_mods/Outflow.dll
-    wget https://github.com/BlueCyro/Outflow/releases/latest/download/Outflow.dll -P ${installDir}Resonite/Headless/rml_mods/
-  ''
-  else "rm ${installDir}Resonite/Headless/rml_mods/Outflow.dll"
   else "";
 
   installStresslessHeadless  = if (resoniteModLoader == true) then
@@ -129,7 +119,6 @@ let
     rm ${installDir}Resonite/Headless/rml_libs/0Harmony-Net8.dll
     wget https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony-Net8.dll -P ${installDir}Resonite/Headless/rml_libs/
     ${installHeadlessTweaks}
-    ${installOutflow}
     ${installStresslessHeadless}
   ''
   else pkgs.writeShellScriptBin "UpdateMods"
