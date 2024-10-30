@@ -93,7 +93,7 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
 1. Use the provided setup command:
    - `SetupHeadless`
-     - Note: this does not fully setup the headless for ARM yet, you will need to manually recompile FreeImage and Crunch. I'd recommend following [this guide](<https://github.com/BlueCyro/Resonite-Headless-on-ARM-instructions>)
+     - Note: this does not fully setup the headless for ARM yet. I'd recommend following [this guide](<https://github.com/BlueCyro/Resonite-Headless-on-ARM-instructions>), but it is slightly outdated.
 
 2. Run the headless with the provided command
    - `RunHeadless`
