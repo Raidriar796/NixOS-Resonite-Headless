@@ -47,7 +47,7 @@ This is an experimental NixOS configuration to quickly setup headless clients fo
 
    - For x86/x64: `sudo curl -L -o "/etc/nixos/configuration.nix" "https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration-x86_64-linux.nix"`
 
-   - For ARM (WIP): `sudo curl -L -o "/etc/nixos/configuration.nix" "https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/main/configuration-aarch64-linux.nix"`
+   - For ARM (WIP): `sudo curl -L -o "/etc/nixos/configuration.nix" "https://raw.githubusercontent.com/Raidriar796/NixOS-Resonite-Headless/refs/heads/aarch64-linux-support/configuration-aarch64-linux.nix"`
 
 2. Make initial changes to the config. The config is setup to do most of the leg work but at the very least you need to change the values at the top of the config, such as renaming the non root user and adding login credentials. Edit the config with:
 
