@@ -124,26 +124,6 @@ let
   '' 
     echo "Resonite Mod Loader is not enabled, set resoniteModLoader to true in configuration.nix, rebuild, then run SetupHeadless or CleanSetupHeadless to enable Resonite Mod Loader"
   '';
-  
-  ClearCache = pkgs.writeShellScriptBin "ClearCache"
-  ''
-    rm -r ${installDir}Resonite/Headless/Cache/*
-  '';
-
-  ClearData = pkgs.writeShellScriptBin "ClearData"
-  ''
-    rm -r ${installDir}Resonite/Headless/Data/*
-  '';
-
-  ClearLogs = pkgs.writeShellScriptBin "ClearLogs"
-  ''
-    rm -r ${installDir}Resonite/Headless/Logs/*
-  '';
-
-  ClearModConfigs = pkgs.writeShellScriptBin "ClearModConfigs"
-  ''
-    rm -r ${installDir}rml_config/*
-  '';
 
   RunHeadless = pkgs.writeShellScriptBin "RunHeadless"
   ''
@@ -238,10 +218,6 @@ in
 
     # Shell scripts
     CleanSetupHeadless
-    ClearCache
-    ClearData
-    ClearLogs
-    ClearModConfigs
     RunHeadless
     SetupHeadless
     UpdateConfig
@@ -252,6 +228,10 @@ in
 
   programs.bash.shellAliases = 
   {
+    ClearCache = "rm -r ${installDir}Resonite/Headless/Cache/*";
+    ClearData = "rm -r ${installDir}Resonite/Headless/Data/*";
+    ClearLogs = "rm -r ${installDir}Resonite/Headless/Logs/*";
+    ClearModConfigs = "rm -r ${installDir}rml_config/*";
     fastfetch = "echo '${AsciiArt}' >| /tmp/GloopieNixosLogo.txt && fastfetch -l /tmp/GloopieNixosLogo.txt --logo-color-1 red --logo-color-2 yellow --logo-color-3 green --logo-color-4 cyan --logo-color-5 blue --logo-color-6 magenta";
   };
 
