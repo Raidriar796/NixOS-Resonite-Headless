@@ -40,7 +40,7 @@ let
   # These values are optional but are available for extra configuration
   nixAutoLogin = false;
   installDir = "$HOME/";
-  envVars = "";   
+  envVars = "nice -10 ionice -n 0";   
   launchArgs = "";
   # The following values are mods which require resoniteModLoader to be true to work
   # Harmony does not support dotnet 9 yet, mods will not work until then.
