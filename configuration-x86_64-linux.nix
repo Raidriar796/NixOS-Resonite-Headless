@@ -228,11 +228,11 @@ in
     pkgs.wget
 
     # For downloading from Steam
-    pkgs.steamPackages.steamcmd
+    pkgs.steamcmd
 
     # Headless client dependancies
     pkgs.freetype
-    pkgs.dotnet-runtime_8
+    pkgs.dotnetCorePackages.dotnet_9.runtime
 
     # Shell scripts
     CleanSetupHeadless
@@ -256,5 +256,5 @@ in
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }
