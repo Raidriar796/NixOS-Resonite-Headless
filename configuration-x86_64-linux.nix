@@ -43,6 +43,8 @@ let
   envVars = "";   
   launchArgs = "";
   # The following values are mods which require resoniteModLoader to be true to work
+  # Harmony does not support dotnet 9 yet, mods will not work until then.
+  # The existing scripts are setup for dotnet 8
   resoniteModLoader = false;  # https://github.com/resonite-modding-group/resonitemodloader
   headlessTweaks = false;     # https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks
   stresslessHeadless = false; # https://github.com/Raidriar796/StresslessHeadless
